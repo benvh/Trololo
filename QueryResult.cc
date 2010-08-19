@@ -26,7 +26,11 @@ QueryResult::QueryResult(std::map< std::string, Column* > cols, int rows)
 
 QueryResult::~QueryResult(void)
 {
-
+	std::map< std::string, Column* >::const_iterator it;
+	for(it = this->cols.begin(); it != cols.end(); it++)
+	{
+		delete(it->second);
+	}
 }
 
 bool QueryResult::hasNext(void)

@@ -2,18 +2,25 @@
 #define __DATABASE_H__
 
 #include <sqlite3.h>
+#include <string>
 #include "QueryResult.h"
 
 class SqliteDatabase
 {
 	private:
 		sqlite3* db;
+		std::string dbName;
+		bool connected;
 		
 	public:
-		SqliteDatabase(const char* db);
+		SqliteDatabase(std::string db, bool connect=true);
 		~SqliteDatabase(void);
 
-		QueryResult* simpleQuery(const char* qeury);
+		int connect(void);
+		int disconnect(void);
+		bool isConnected(void);
+		
+		QueryResult* simpleQuery(std::string query);
 
 		
 };
