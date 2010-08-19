@@ -1,5 +1,7 @@
 #include "SqliteDatabase.h"
 
+#include <iostream>
+
 SqliteDatabase::SqliteDatabase(std::string db, bool connect)
 {
 	this->dbName = db;
@@ -12,6 +14,11 @@ SqliteDatabase::~SqliteDatabase(void)
 {
 	if(this->isConnected())
 		this->disconnect();
+}
+
+bool SqliteDatabase::isConnected(void)
+{
+	return this->connected;
 }
 
 int SqliteDatabase::connect(void)
@@ -43,7 +50,10 @@ QueryResult* SqliteDatabase::simpleQuery(std::string query)
 			{
 				colnames.push_back(sqlite3_column_name(stmt, i));
 				cols.push_back(new Column);
+
 			}
+
+			int rows = 0;
 
 			while(sqlite3_step(stmt) == SQLITE_ROW)
 			{
@@ -63,11 +73,16 @@ QueryResult* SqliteDatabase::simpleQuery(std::string query)
 							cols.at(i)->pushValue((std::string) ((const char*)sqlite3_column_text(stmt, i)) );
 							break;
 
+						case SQLITE_BLOB:
+							//Implement here
+							break;
+
 						case SQLITE_NULL:
-							cols.at(i)->pushValue(boost::any());
+							//Implement here
 							break;					
 					}
 				}
+				rows++;
 			}
 
 			std::map<std::string, Column*> colmap;
@@ -75,7 +90,7 @@ QueryResult* SqliteDatabase::simpleQuery(std::string query)
 			for(int i = 0; i < cols.size(); i++)
 				colmap.insert(std::pair<std::string, Column*>(colnames.at(i), cols.at(i)));
 
-			return new QueryResult(colmap, cols.size());	
+			return new QueryResult(colmap, rows);	
 		}		
 	}
 

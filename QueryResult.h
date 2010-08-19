@@ -39,7 +39,7 @@ class QueryResult
 		boost::any getValue(std::string colname);
 		
 		int getInt(std::string colname);
-		float getFloat(std::string colname);
+		double getDouble(std::string colname);
 		std::string getString(std::string colname);
 };
 

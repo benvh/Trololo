@@ -54,9 +54,9 @@ int QueryResult::getInt(std::string colname)
 	return any_cast<int>(this->getValue(colname));
 }
 
-float QueryResult::getFloat(std::string colname)
+double QueryResult::getDouble(std::string colname)
 {
-	return any_cast<float>(this->getValue(colname));
+	return any_cast<double>(this->getValue(colname));
 }
 
 std::string QueryResult::getString(std::string colname)
