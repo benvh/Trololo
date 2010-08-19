@@ -49,9 +49,34 @@ boost::any QueryResult::getValue(std::string colname)
 	return this->cols.find(colname)->second->getValue(this->currentRow);
 }
 
+
+bool QueryResult::isInt(std::string colname)
+{
+	return this->getValue(colname).type() == typeid(int);
+}
+
+bool QueryResult::isDouble(std::string colname)
+{
+	return this->getValue(colname).type() == typeid(double);
+}
+
+bool QueryResult::isString(std::string colname)
+{
+	//Implement here
+	return true;
+}
+
+bool QueryResult::isNULL(std::string colname)
+{
+	return this->getValue(colname).empty();
+}
+
+
+
+
 int QueryResult::getInt(std::string colname)
 {
-	return any_cast<int>(this->getValue(colname));
+	return any_cast<int>(this->getValue(colname));	
 }
 
 double QueryResult::getDouble(std::string colname)

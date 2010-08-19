@@ -12,7 +12,9 @@ main (int argc, char const* argv[])
 	QueryResult* res = db->simpleQuery("SELECT * FROM `testing`");
 	while(res->hasNext())
 	{
-		std::cout << res->getString("value1") << ", " << res->getInt("value2") << ", " << res->getDouble("value3") << std::endl;
+		if(!res->isNULL("value1")) cout << res->getString("value1") << " ";
+		if(!res->isNULL("value2")) cout << res->getInt("value2");
+		cout << endl;
 		res->next();
 	}
 	

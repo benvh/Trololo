@@ -78,7 +78,7 @@ QueryResult* SqliteDatabase::simpleQuery(std::string query)
 							break;
 
 						case SQLITE_NULL:
-							//Implement here
+							cols.at(i)->pushValue(boost::any()); 
 							break;					
 					}
 				}

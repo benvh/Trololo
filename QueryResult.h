@@ -41,6 +41,11 @@ class QueryResult
 		int getInt(std::string colname);
 		double getDouble(std::string colname);
 		std::string getString(std::string colname);
+
+		bool isInt(std::string colname);
+		bool isDouble(std::string colname);
+		bool isString(std::string colname);
+		bool isNULL(std::string colname);
 };
 
 #endif /* __QUERYRESULT_H__ */
